@@ -1,2 +1,2 @@
 # expert-octo-barnacle
-Diffusion-Based Generative Modeling of the Implied Volatility Surface
+Diffusion-Based Generative Modelling of the Implied Volatility Surface
