@@ -227,30 +227,6 @@ The training loss is a denoising objective and cannot measure sample quality by 
 arbitrage rates (and the stylized-fact checks above) are the metrics that decide which checkpoint
 is "good".
 
----
-
-## Failure modes & fixes
-
-Debugging notes kept on purpose — each of these visibly degraded samples before being found:
-
-- **Min/max normalisation collapsed the signal.** A single March-2020 crisis spike set the range,
-  squashing typical surfaces into ~6 % of the prior's variance → speckled samples. Fixed by
-  z-scoring with train stats (details in [§1](#normalisation)).
-- **Raw `t ∈ [0,1]` broke the timestep embedding.** Adjacent noise levels were nearly
-  indistinguishable (cosine similarity 0.9996) → poor structure and diversity. Fixed by the
-  `t × 999` score_sde convention (details in [§3](#score-network-modelunetpy)).
-- **Predicting the score directly was ill-conditioned.** The target blows up like `1/σ(t)` at
-  small `t` → pixel-level speckle. Fixed by ε-parameterisation with an analytic score wrapper
-  (details in [§2](#ε-parameterisation)).
-- **The MMD tracking metric selects bad checkpoints.** Pixel-space RBF MMD with a
-  median-heuristic bandwidth is *lowest* in the first ~50 epochs and rises as samples improve
-  visually and in arbitrage terms; `best_mmd_euler_ode.pt` turned out to be an epoch-30 model
-  that still samples noise. Do **not** use the `best_mmd_*` checkpoints — use `best_val.pt`.
-  Fixing the metric (bandwidth frozen on real data, or MMD in a feature space) is on the TODO
-  list.
-
----
-
 ## Reproducing
 
 ```bash
