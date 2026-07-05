@@ -217,8 +217,7 @@ CPU+CUDA RNG state is restored afterwards) and scored two ways:
 
 - **MMD** (RBF kernel, median-heuristic bandwidth) between generated and validation surfaces,
   per sampler — plotted together in `mmd.png`; each sampler keeps its own `best_mmd_{method}.pt`
-  checkpoint. **Known issue:** this metric is currently misleading — see
-  [Failure modes](#failure-modes--fixes).
+  checkpoint. **Known issue:** this metric is currently misleading.
 - **Static-arbitrage violation rates**: **calendar** (total variance `w = σ²τ` non-decreasing in
   maturity) and **butterfly** (Durrleman's condition `g(k) ≥ 0`, i.e. non-negative risk-neutral
   density), on samples mapped back to vol units, plotted against the *real-data* violation level.
@@ -231,8 +230,8 @@ is "good".
 
 ```bash
 # 0. Clone and install dependencies
-git clone https://github.com/LiamMry/expert-octo-barnacle.git
-cd expert-octo-barnacle
+git clone https://github.com/LiamMry/iv-surface-diffusion.git
+cd iv-surface-diffusion
 pip install -r requirements.txt
 
 # 1. Build the dataset cache (raw parquet → cleaned chain → 32×32 surfaces)
