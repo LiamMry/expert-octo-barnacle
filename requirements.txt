@@ -1,0 +1,14 @@
+torch
+torchvision
+numpy
+pandas
+pyarrow          # parquet engine for pandas
+scipy            # surface interpolation (griddata)
+matplotlib
+pillow           # GIF writer for exp_traj.py
+tqdm
+pyyaml
+
+# optional — extra eval metrics (eval.py)
+# lpips
+# open-clip-torch

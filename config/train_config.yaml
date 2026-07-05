@@ -1,0 +1,40 @@
+train:
+  batch_size: 16
+  shuffle: True
+  num_workers: 4
+  max_epochs: 500
+  ema: True
+
+valid:
+  batch_size: 16
+  shuffle: False
+  num_workers: 4
+
+dsm:
+  weighting: min_snr
+  eps_t: 0.0001
+  t_sampling: uniform   # uniform | log_uniform
+
+optimizer:
+  lr: 0.0002
+  plateau_factor: 0.5    # multiply LR by this when val loss stalls
+  plateau_patience: 10   # epochs without improvement before reducing LR
+
+generation:
+  every_n_epochs: 10
+  n_samples: 64
+  batch_size: 32
+  # OLD (single sampler):
+  # num_steps: 1000
+  # method: euler_maruyama
+  # UPDATED: one entry per sampler — {method: num_steps}. A grid + an MMD curve
+  # is produced for each. Step counts chosen for a comparable NFE budget
+  # (heun_ode does 2 NFE per step).
+  methods:
+    euler_maruyama: 1000
+    euler_ode: 500
+    heun_ode: 250
+    dpm_solver_2: 100
+
+
+  

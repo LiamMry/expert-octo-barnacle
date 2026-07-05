@@ -1,0 +1,33 @@
+# Defaults for image training.
+
+model:
+  dims: 2                           # 1 for signal, 2 for image, 3 for volume 
+  image_size: 32                     # IV surfaces are 32x32 (GRID_H, GRID_W)
+  in_channels: 1                    # NEW: explicit, no more guessing
+  out_channels: 1                   # NEW: explicit, no more guessing
+  num_channels: 32
+  num_res_blocks: 2
+  channel_mult: ""
+  learn_sigma: False
+  class_cond: False
+  use_checkpoint: False
+  attention_resolutions: 16
+  num_heads: 4
+  num_head_channels: 64
+  num_heads_upsample: -1
+  use_scale_shift_norm: True
+  dropout: 0.0
+  resblock_updown: True
+  use_fp16: False
+  use_new_attention_order: False
+  model_path: 
+
+sde:
+  name: vp
+  beta_min: 0.0001     
+  beta_max: 20.0  
+  # beta_min and beta_max are chosen to match the settings in 
+  # Denoising Diffusion Probabilistic Models [Ho et. al. 2020], 
+  # for more details see Score-Based Generative Modeling through Stochastic 
+  # Differential Equations [Song et. al. 2021]
+  T: 1.0
